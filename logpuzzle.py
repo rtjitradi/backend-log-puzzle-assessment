@@ -22,7 +22,8 @@ import re
 import sys
 import urllib.request
 import argparse
-from collections import defaultdict  # https://docs.python.org/3/library/collections.html#collections.defaultdict
+from collections import defaultdict
+# https://docs.python.org/3/library/collections.html#collections.defaultdict
 
 
 def read_urls(filename):
@@ -32,7 +33,8 @@ def read_urls(filename):
     """
 
     #  https://www.youtube.com/watch?v=Nn2KQmVF5Og&feature=emb_logo
-    #  We need a dictionary lists to use the key and value, so import collections and use defaultdict
+    #  We need a dictionary lists to use the key and value
+    #  so import collections and use defaultdict
     list_of_puzzle = []
     puzzle = defaultdict(list)
     pattern = r"\S*\Spuzzle\S*"
@@ -42,13 +44,14 @@ def read_urls(filename):
         for line in f:
             url_found = re.search(pattern, line)
             if url_found:
-                puzzle[line[url_found.start():url_found.end()]]  # https://docs.python.org/3/library/re.html#re.match.start
+                puzzle[line[url_found.start():url_found.end()]]
+                # https://docs.python.org/3/library/re.html#re.match.start
     for key in puzzle.keys():
         list_of_puzzle.append(address + key)
     if temp[0] == "animal":
         return sorted(list_of_puzzle)
     else:
-        return sorted(list_of_puzzle, key=lambda x: x.split("_")[4])
+        return sorted(list_of_puzzle, key=lambda x: x.split("-")[4])
 
 
 def html_tag(tag):
