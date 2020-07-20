@@ -56,8 +56,9 @@ def read_urls(filename):
 
 def html_tag(tag):
     def wrap_text(file, msg):
+        folder_structure = msg.split("/")
         with open(file, "a") as f:
-            f.write('<{0} src="{1}" />'.format(tag, msg))
+            f.write('<{0} src="{1}" />'.format(tag, folder_structure[1]))
     return wrap_text
 
 
@@ -77,11 +78,12 @@ def download_images(img_urls, dest_dir):
     except OSError as err:
         print(err)
         exit(1)
+    html_dest = os.path.join(dest_dir, "index.html")
     img_tag = html_tag("img")
     for url in img_urls:
         img_filename = os.path.join(dest_dir, "img" + str(img_count) + ".jpg")
         urllib.request.urlretrieve(url, img_filename)
-        img_tag("index.html", img_filename)
+        img_tag(html_dest, img_filename)
         img_count += 1
 
 
